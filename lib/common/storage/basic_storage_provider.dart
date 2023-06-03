@@ -10,7 +10,7 @@ class BasicStorage extends StateNotifier {
 
 final ipAddressProvider = StateProvider<String>((ref) {
   final preferences = ref.watch(sharedPreferencesProvider);
-  final currentValue = preferences.getString('ip') ?? '192.168.1.110';
+  final currentValue = preferences.getString('ip') ?? '172.31.80.1';
   ref.listenSelf((prev, curr) {
     preferences.setString('ip', curr);
   });
@@ -18,4 +18,4 @@ final ipAddressProvider = StateProvider<String>((ref) {
 });
 
 final serveAddress =
-    StateProvider<String>((ref) => "${ref.watch(ipAddressProvider)}:8080");
+    StateProvider<String>((ref) => "http://${ref.watch(ipAddressProvider)}:8080");

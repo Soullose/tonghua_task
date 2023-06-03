@@ -51,7 +51,7 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
       return Future.delayed(
         networkRoundTripTime,
             () async {
-          dynamic response = await httpManager.netFetch("http://$serveAddress/");
+          // dynamic response = await httpManager.netFetch("http://$serveAddress/");
           return const User(id: '');
         },
       );
@@ -91,6 +91,13 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
           : sharedPreferences.setString(_sharedPrefsKey, val.token);
     });
   }
+
+
+  void saveToken() {}
+
+  void getToken() {}
+
+
 }
 
 /// Simple mock of a 401 exception

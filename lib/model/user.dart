@@ -59,6 +59,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
 part 'user.freezed.dart';
+
 part 'user.g.dart';
 
 @freezed
@@ -70,6 +71,9 @@ class User with _$User {
     String? phoneNumber,
     String? email,
   }) = _User;
+
+  factory User.initial() => const User(
+      id: '', firstName: '', lastName: '', phoneNumber: '', email: '');
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
