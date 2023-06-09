@@ -2,6 +2,7 @@
 //
 //     final user = userFromJson(jsonString);
 
+// import 'package:flutter/foundation.dart';
 // import 'dart:convert';
 //
 // class User {
@@ -56,24 +57,39 @@
 // }
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'user.freezed.dart';
-
 part 'user.g.dart';
 
 @freezed
 class User with _$User {
+  const factory User.signedIn({
+    required String? id,
+    String? firstName,
+    String? lastName,
+    String? phoneNumber,
+    String? email,
+    required String token,
+  }) = SignedIn;
+
+  const factory User.signedOut() = SignedOut;
+
   const factory User({
     required String? id,
     String? firstName,
     String? lastName,
     String? phoneNumber,
     String? email,
+    required String token,
   }) = _User;
 
   factory User.initial() => const User(
-      id: '', firstName: '', lastName: '', phoneNumber: '', email: '');
+      id: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      token: '');
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

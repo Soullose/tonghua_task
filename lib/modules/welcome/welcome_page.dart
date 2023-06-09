@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tonghua_task/common/storage/shared_preferences_provider.dart';
 
-import '../common/net/http_client.dart';
-import '../common/storage/basic_storage_provider.dart';
+import '../../common/net/http_client.dart';
+import '../../common/storage/basic_storage_provider.dart';
 
 class WelcomePage extends ConsumerStatefulWidget {
   const WelcomePage({
@@ -17,7 +17,6 @@ class WelcomePage extends ConsumerStatefulWidget {
 class _WelcomePageState extends ConsumerState<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: Container(
         color: Colors.blue,
@@ -37,7 +36,8 @@ class _WelcomePageState extends ConsumerState<WelcomePage> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  print('${ref.watch(sharedPreferencesProvider).getString('token')}');
+                  print(
+                      '${ref.watch(sharedPreferencesProvider).getString('token')}');
                   print('${ref.watch(serveAddress)}');
                   final httpManager = ref.read(netProvider.notifier);
                   dynamic response = await httpManager.netFetch(

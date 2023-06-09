@@ -11,13 +11,12 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
 
   final Ref ref;
 
-
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final authorizationCode = getToken();
-    print('-------${authorizationCode}')  ;
+    print('-------${authorizationCode}');
     // final authorizationCode = UserStore.to.token;
-    if(authorizationCode != null){
+    if (authorizationCode != null) {
       options.headers['authorization'] = authorizationCode;
     }
     super.onRequest(options, handler);
@@ -27,7 +26,7 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
   void onResponse(
       Response<dynamic> response, ResponseInterceptorHandler handler) {
     final authorizationCode = getToken();
-    if(authorizationCode == null){
+    if (authorizationCode == null) {
       saveAuthorization(response);
     }
 
@@ -45,7 +44,7 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
     super.onError(err, handler);
   }
 
-  void saveAuthorization(Response<dynamic> response) async{
+  void saveAuthorization(Response<dynamic> response) async {
     final String authorization = response.headers.value('authorization')!;
     if (kDebugMode) {
       print('token:$authorization');
@@ -55,7 +54,6 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
     final preferences = ref.watch(sharedPreferencesProvider);
 
     preferences.setString('token', authorization);
-
   }
 
   String? getToken() {

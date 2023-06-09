@@ -7,12 +7,12 @@ class AuthController extends StateNotifier<User> {
 
   final IAuthFacade _authFacade;
 
-  Future signInWithUsernameAndPassword(String username,String password){
-    return _authFacade.signInWithUsernameAndPassword(username: username, password: password);
+  Future signInWithUsernameAndPassword(String username, String password) {
+    return _authFacade.signInWithUsernameAndPassword(
+        username: username, password: password);
   }
 
   Future signOut() {
     return _authFacade.signOut();
   }
-
 }

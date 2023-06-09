@@ -75,17 +75,7 @@ import 'result_data.dart';
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-class HttpManager extends AutoDisposeAsyncNotifier{
-
+class HttpManager extends AutoDisposeAsyncNotifier {
   @override
   FutureOr build() {
     dio.interceptors.add(HeaderInterceptors());
@@ -107,16 +97,16 @@ class HttpManager extends AutoDisposeAsyncNotifier{
   // }
 
   Future<ResultData?> netFetch(
-      url, {
-        DioMethod method = DioMethod.get,
-        Map<String, dynamic>? params,
-        Object? data,
-        Options? options,
-        Map<String, dynamic>? header,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress,
-        noTip = false,
-      }) async {
+    url, {
+    DioMethod method = DioMethod.get,
+    Map<String, dynamic>? params,
+    Object? data,
+    Options? options,
+    Map<String, dynamic>? header,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    noTip = false,
+  }) async {
     const methodValues = {
       DioMethod.get: 'get',
       DioMethod.post: 'post',
@@ -159,19 +149,14 @@ class HttpManager extends AutoDisposeAsyncNotifier{
   }
 }
 
-
-
-
-
 // final HttpManager httpManager = HttpManager();
-
 
 // class Net extends AutoDisposeAsyncNotifier<HttpManager>{
 //   @override
 //   FutureOr<HttpManager> build() => HttpManager(ref: ref);
 // }
 
-final netProvider = AutoDisposeAsyncNotifierProvider(()=>HttpManager());
+final netProvider = AutoDisposeAsyncNotifierProvider(() => HttpManager());
 
 enum DioMethod {
   get,

@@ -1,19 +1,21 @@
 import 'dart:async';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tonghua_task/common/net/http_client.dart';
-import 'package:tonghua_task/common/storage/basic_storage_provider.dart';
+import 'package:tonghua_task/common/utils/log_utils.dart';
 
 import '../../model/user.dart';
 import '../storage/shared_preferences_provider.dart';
 
-class AuthNotifier extends AutoDisposeAsyncNotifier {
+part 'auth.g.dart';
+
+@riverpod
+class AuthNotifier extends _$AuthNotifier {
   late SharedPreferences sharedPreferences;
   static const _sharedPrefsKey = 'token';
 
   @override
-  FutureOr build() async {
+  FutureOr<User> build() async {
     sharedPreferences = ref.watch(sharedPreferencesProvider);
 
     _persistenceRefreshLogic();
@@ -23,7 +25,7 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
 
   /// Tries to perform a login with the saved token on the persistant storage.
   /// If _anything_ goes wrong, deletes the internal token and returns a [User.signedOut].
-  Future<User?> _loginRecoveryAttempt() async {
+  Future<User> _loginRecoveryAttempt() async {
     try {
       final savedToken = sharedPreferences.getString(_sharedPrefsKey);
       if (savedToken == null) {
@@ -35,14 +37,14 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
       return await _loginWithToken(savedToken);
     } catch (_, __) {
       await sharedPreferences.remove(_sharedPrefsKey);
-      return null;
+      return const User.signedOut();
     }
   }
 
   /// Mock of a request performed on logout (might be common, or not, whatevs).
   Future<void> logout() async {
     await Future.delayed(networkRoundTripTime);
-    state = const AsyncValue.data(null);
+    state = const AsyncValue.data(User.signedOut());
   }
 
   /// Mock of a successful login attempt, which results come from the network.
@@ -50,9 +52,9 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
     state = await AsyncValue.guard<User>(() async {
       return Future.delayed(
         networkRoundTripTime,
-            () async {
+        () async {
           // dynamic response = await httpManager.netFetch("http://$serveAddress/");
-          return const User(id: '');
+          return const User(id: '', token: '');
         },
       );
     });
@@ -63,10 +65,10 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
   Future<User> _loginWithToken(String token) async {
     final logInAttempt = await Future.delayed(
       networkRoundTripTime,
-          () => true,
+      () => true,
     );
 
-    if (logInAttempt) return const User(id: '');
+    if (logInAttempt) return const User(id: '', token: '');
 
     throw const UnauthorizedException('401 Unauthorized or something');
   }
@@ -84,20 +86,17 @@ class AuthNotifier extends AutoDisposeAsyncNotifier {
       }
 
       final val = next.requireValue;
-      final isAuthenticated = val == null;
 
-      isAuthenticated
-          ? sharedPreferences.remove(_sharedPrefsKey)
-          : sharedPreferences.setString(_sharedPrefsKey, val.token);
+      val.map<void>(
+        (user) {
+          LogUtils.i(user);
+        },
+        signedIn: (signedIn) =>
+            sharedPreferences.setString(_sharedPrefsKey, signedIn.token),
+        signedOut: (signedOut) => sharedPreferences.remove(_sharedPrefsKey),
+      );
     });
   }
-
-
-  void saveToken() {}
-
-  void getToken() {}
-
-
 }
 
 /// Simple mock of a 401 exception

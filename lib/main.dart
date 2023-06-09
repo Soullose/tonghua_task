@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tonghua_task/page/welcome_page.dart';
+import 'package:tonghua_task/modules/welcome/welcome_page.dart';
 
 import 'common/storage/shared_preferences_provider.dart';
 import 'common/utils/state_logger/state_logger.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   runApp(

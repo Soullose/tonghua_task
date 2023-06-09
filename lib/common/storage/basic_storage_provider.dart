@@ -17,5 +17,5 @@ final ipAddressProvider = StateProvider<String>((ref) {
   return currentValue;
 });
 
-final serveAddress =
-    StateProvider<String>((ref) => "http://${ref.watch(ipAddressProvider)}:8080");
+final serveAddress = StateProvider<String>(
+    (ref) => "http://${ref.watch(ipAddressProvider)}:8080");
