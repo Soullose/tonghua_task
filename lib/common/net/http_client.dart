@@ -118,7 +118,7 @@ class HttpManager extends AutoDisposeAsyncNotifier {
     options ??= Options(method: methodValues[method]);
     // print(options.headers);
 
-    resultError(DioError e) {
+    resultError(DioException e) {
       Response? errorResponse;
       if (e.response != null) {
         errorResponse = e.response;
@@ -126,8 +126,8 @@ class HttpManager extends AutoDisposeAsyncNotifier {
         errorResponse = Response(
             statusCode: 999, requestOptions: RequestOptions(path: url));
       }
-      if (e.type == DioErrorType.connectionTimeout ||
-          e.type == DioErrorType.receiveTimeout) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
         errorResponse!.statusCode = -2;
       }
       return ResultData(e.message, false, errorResponse!.statusCode);
@@ -138,10 +138,10 @@ class HttpManager extends AutoDisposeAsyncNotifier {
     try {
       response = await dio.request(url,
           queryParameters: params, data: data, options: options);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return resultError(e);
     }
-    if (response.data is DioError) {
+    if (response.data is DioException) {
       return resultError(response.data);
     }
 
