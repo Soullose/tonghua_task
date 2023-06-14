@@ -10,7 +10,7 @@ class BasicStorage extends StateNotifier {
 
 final ipAddressProvider = StateProvider<String>((ref) {
   final preferences = ref.watch(sharedPreferencesProvider);
-  final currentValue = preferences.getString('ip') ?? '172.31.80.1';
+  final currentValue = preferences.getString('ip') ?? '172.30.160.1';
   ref.listenSelf((prev, curr) {
     preferences.setString('ip', curr);
   });

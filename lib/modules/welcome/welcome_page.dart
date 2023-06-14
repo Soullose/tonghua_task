@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tonghua_task/common/storage/shared_preferences_provider.dart';
-
-import '../../common/net/http_client.dart';
-import '../../common/storage/basic_storage_provider.dart';
 
 class WelcomePage extends ConsumerStatefulWidget {
   const WelcomePage({
@@ -20,9 +16,9 @@ class _WelcomePageState extends ConsumerState<WelcomePage> {
     return Material(
       child: Container(
         color: Colors.blue,
-        child: Stack(
+        child: const Stack(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
@@ -34,23 +30,6 @@ class _WelcomePageState extends ConsumerState<WelcomePage> {
                 ),
               ),
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  print(
-                      '${ref.watch(sharedPreferencesProvider).getString('token')}');
-                  print('${ref.watch(serveAddress)}');
-                  final httpManager = ref.read(netProvider.notifier);
-                  dynamic response = await httpManager.netFetch(
-                      '${ref.watch(serveAddress)}/api/platform/login',
-                      data: {"username": 'admin', "password": 'admin'},
-                      method: DioMethod.post);
-                  if (response.code == 200) {
-                    await httpManager.netFetch(
-                        '${ref.watch(serveAddress)}/api/platform/sessions',
-                        method: DioMethod.post);
-                  }
-                },
-                child: const Text('data'))
           ],
         ),
       ),

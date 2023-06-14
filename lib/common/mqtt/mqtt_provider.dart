@@ -9,14 +9,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../storage/basic_storage_provider.dart';
 import '../utils/nanoid/nanoid.dart';
 import 'mqtt_connection_status_provider.dart';
-// import 'package:uuid/uuid.dart';
 
 part 'mqtt_provider.g.dart';
 
-const subscribeTopics = [
-  'echo/#',
-  'another/topic',
-];
+const subscribeTopics = ['wms/scheduler/#'];
 
 @Riverpod(keepAlive: true)
 class Mqtt extends _$Mqtt {
@@ -147,21 +143,3 @@ class Mqtt extends _$Mqtt {
     }
   }
 }
-
-// enum MqttClientConnectionStatus {
-//   /// The MQTT Connection is in the process of disconnecting from the broker.
-//   disconnecting,
-//
-//   /// MQTT Connection is not currently connected to any broker.
-//   disconnected,
-//
-//   /// The MQTT Connection is in the process of connecting to the broker.
-//   connecting,
-//
-//   /// The MQTT Connection is currently connected to the broker.
-//   connected,
-//
-//   /// The MQTT Connection is faulted and no longer communicating
-//   /// with the broker.
-//   faulted
-// }

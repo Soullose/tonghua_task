@@ -1,10 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tonghua_task/common/utils/log_utils.dart';
+import 'package:tonghua_task/constacts/api_path.dart';
 
 import '../../model/user.dart';
+import '../net/http_client.dart';
+import '../storage/basic_storage_provider.dart';
 import '../storage/shared_preferences_provider.dart';
 
 part 'auth.g.dart';
@@ -13,10 +17,12 @@ part 'auth.g.dart';
 class AuthNotifier extends _$AuthNotifier {
   late SharedPreferences sharedPreferences;
   static const _sharedPrefsKey = 'token';
+  static const _sharedPrefsCookieKey = 'cookie';
 
   @override
   FutureOr<User> build() async {
     sharedPreferences = ref.watch(sharedPreferencesProvider);
+    // httpManager = ref.read(netProvider.notifier);
 
     _persistenceRefreshLogic();
 
@@ -48,12 +54,30 @@ class AuthNotifier extends _$AuthNotifier {
   }
 
   /// Mock of a successful login attempt, which results come from the network.
-  Future<void> login(String email, String password) async {
+  Future<void> login(String username, String password) async {
+    final httpManager = ref.read(netProvider.notifier);
+    sharedPreferences.remove(_sharedPrefsCookieKey);
     state = await AsyncValue.guard<User>(() async {
       return Future.delayed(
         networkRoundTripTime,
         () async {
-          // dynamic response = await httpManager.netFetch("http://$serveAddress/");
+          dynamic response = await httpManager.netFetch(
+              "${ref.watch(serveAddress)}${ApiPath.signInUrl}",
+              data: {
+                "username": username,
+                "password": password,
+                "rememberMe": false
+              },
+              method: DioMethod.post);
+          if (response.code == 200) {
+            print("ccccc:${ref.watch(serveAddress)}${ApiPath.initUrl}");
+            dynamic response = await httpManager.netFetch(
+                "${ref.watch(serveAddress)}${ApiPath.initUrl}",
+                method: DioMethod.get);
+            if (response.code == 200) {
+              print('${response.data}');
+            }
+          }
           return const User(id: '', token: '');
         },
       );
@@ -107,4 +131,4 @@ class UnauthorizedException implements Exception {
 }
 
 /// Mock of the duration of a network request
-const networkRoundTripTime = Duration(milliseconds: 750);
+const networkRoundTripTime = Duration(milliseconds: 200);

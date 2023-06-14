@@ -31,15 +31,15 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
     if (this.state.isLoading || this.state.hasError) return null;
 
-    final isSplash = state.location == RouterPath.home.path;
+    final isSplash = state.location == RouterPath.welcome.path;
 
     if (isSplash) {
       await Future.delayed(const Duration(seconds: 3));
-      return isAuth ? RouterPath.home.path : RouterPath.signIn.path;
+      return isAuth ? RouterPath.taskMonitor.path : RouterPath.signIn.path;
     }
 
     final isLoggingIn = state.location == RouterPath.signIn.path;
-    if (isLoggingIn) return isAuth ? RouterPath.home.path : null;
+    if (isLoggingIn) return isAuth ? RouterPath.taskMonitor.path : null;
 
     return isAuth ? null : RouterPath.signIn.path;
   }

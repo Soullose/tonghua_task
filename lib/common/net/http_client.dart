@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'interceptors/cookie_interceptors.dart';
 import 'interceptors/error_interceptors.dart';
 import 'interceptors/header_interceptor.dart';
 import 'interceptors/response_interceptors.dart';
@@ -79,7 +80,8 @@ class HttpManager extends AutoDisposeAsyncNotifier {
   @override
   FutureOr build() {
     dio.interceptors.add(HeaderInterceptors());
-    dio.interceptors.add(TokenInterceptors(ref: ref));
+    dio.interceptors.add(CookieInterceptors(ref: ref));
+    // dio.interceptors.add(TokenInterceptors(ref: ref));
     dio.interceptors.add(ErrorInterceptors());
     dio.interceptors.add(ResponseInterceptors());
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SingleTaskPage extends ConsumerWidget {
-  const SingleTaskPage({
+class TaskMonitorPage extends ConsumerWidget {
+  const TaskMonitorPage({
     Key? key,
   }) : super(key: key);
 
@@ -10,7 +10,7 @@ class SingleTaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
       body: Center(
-        child: Text('单车任务'),
+        child: Text('任务监控'),
       ),
     );
   }

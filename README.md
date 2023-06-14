@@ -15,7 +15,7 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## 生成代码指令
+## 生成riverpod,freezed代码指令
 ```shell
 flutter pub run build_runner watch
 ```
