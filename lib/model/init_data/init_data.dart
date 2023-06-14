@@ -19,7 +19,8 @@ class InitData with _$InitData {
     User? user,
   }) = _InitData;
 
-  factory InitData.fromJson(Map<String, dynamic> json) => _$InitDataFromJson(json);
+  factory InitData.fromJson(Map<String, dynamic> json) =>
+      _$InitDataFromJson(json);
 }
 
 @freezed
@@ -34,7 +35,8 @@ class Application with _$Application {
     dynamic? menus,
   }) = _Application;
 
-  factory Application.fromJson(Map<String, dynamic> json) => _$ApplicationFromJson(json);
+  factory Application.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationFromJson(json);
 }
 
 @freezed

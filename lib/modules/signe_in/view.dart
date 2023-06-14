@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tonghua_task/common/router/router_path.dart';
 
 import '../../common/state/auth.dart';
 
@@ -101,6 +103,23 @@ class SigneInPage extends ConsumerWidget {
                     style: TextStyle(color: Colors.white, fontSize: 22.sp),
                   ),
                 ),
+              ),
+
+
+              // const Divider(
+              //   height: 1,
+              // ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: Text(
+                  '设置',
+                  style: TextStyle(
+                      color: Colors.black, fontSize: 18.sp),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  context.push(RouterPath.setting.path);
+                },
               ),
             ],
           ),

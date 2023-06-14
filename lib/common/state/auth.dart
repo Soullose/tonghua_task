@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tonghua_task/common/utils/log_utils.dart';
@@ -58,6 +60,10 @@ class AuthNotifier extends _$AuthNotifier {
     final httpManager = ref.read(netProvider.notifier);
     sharedPreferences.remove(_sharedPrefsCookieKey);
     state = await AsyncValue.guard<User>(() async {
+      EasyLoading.show(
+          dismissOnTap: true,
+          indicator: const CircularProgressIndicator(),
+          maskType: EasyLoadingMaskType.clear);
       return Future.delayed(
         networkRoundTripTime,
         () async {
