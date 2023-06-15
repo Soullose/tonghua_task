@@ -85,7 +85,7 @@ class AuthNotifier extends _$AuthNotifier {
               LogUtils.i(initDataFromJson(jsonEncode(response.data)));
               final initData = initDataFromJson(jsonEncode(response.data));
               final initUser = initData.initUser;
-              EasyLoading.dismiss();
+              EasyLoading.dismiss(animation: true);
               return User.signedIn(
                   id: initUser?.id,
                   token: '',
