@@ -105,7 +105,6 @@ class SigneInPage extends ConsumerWidget {
                 ),
               ),
 
-
               // const Divider(
               //   height: 1,
               // ),
@@ -113,8 +112,7 @@ class SigneInPage extends ConsumerWidget {
                 leading: const Icon(Icons.settings),
                 title: Text(
                   '设置',
-                  style: TextStyle(
-                      color: Colors.black, fontSize: 18.sp),
+                  style: TextStyle(color: Colors.black, fontSize: 18.sp),
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {

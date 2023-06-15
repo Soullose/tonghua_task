@@ -16,7 +16,7 @@ String initDataToJson(InitData data) => json.encode(data.toJson());
 class InitData with _$InitData {
   const factory InitData({
     List<Application>? applications,
-    User? user,
+    InitUser? initUser,
   }) = _InitData;
 
   factory InitData.fromJson(Map<String, dynamic> json) =>
@@ -29,10 +29,10 @@ class Application with _$Application {
     String? id,
     String? name,
     String? displayName,
-    dynamic? icon,
-    dynamic? disabled,
-    dynamic? routes,
-    dynamic? menus,
+    String? icon,
+    bool? disabled,
+    dynamic routes,
+    dynamic menus,
   }) = _Application;
 
   factory Application.fromJson(Map<String, dynamic> json) =>
@@ -40,14 +40,15 @@ class Application with _$Application {
 }
 
 @freezed
-class User with _$User {
-  const factory User({
+class InitUser with _$InitUser {
+  const factory InitUser({
     String? id,
     String? firstName,
     String? lastName,
     String? phoneNumber,
     String? email,
-  }) = _User;
+  }) = _InitUser;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory InitUser.fromJson(Map<String, dynamic> json) =>
+      _$InitUserFromJson(json);
 }

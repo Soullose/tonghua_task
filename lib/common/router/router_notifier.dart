@@ -39,10 +39,9 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
     }
 
     final isSetting = state.location == RouterPath.setting.path;
-    if(isSetting) {
+    if (isSetting) {
       return RouterPath.setting.path;
     }
-
 
     final isLoggingIn = state.location == RouterPath.signIn.path;
     if (isLoggingIn) return isAuth ? RouterPath.taskMonitor.path : null;

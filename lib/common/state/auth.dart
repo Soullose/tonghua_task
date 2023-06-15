@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tonghua_task/common/utils/log_utils.dart';
 import 'package:tonghua_task/constacts/api_path.dart';
 
+import '../../model/init_data/init_data.dart';
 import '../../model/user.dart';
 import '../net/http_client.dart';
 import '../storage/basic_storage_provider.dart';
@@ -76,12 +77,22 @@ class AuthNotifier extends _$AuthNotifier {
               },
               method: DioMethod.post);
           if (response.code == 200) {
-            print("ccccc:${ref.watch(serveAddress)}${ApiPath.initUrl}");
             dynamic response = await httpManager.netFetch(
                 "${ref.watch(serveAddress)}${ApiPath.initUrl}",
                 method: DioMethod.get);
             if (response.code == 200) {
-              print('${response.data}');
+              LogUtils.i('${response.data}');
+              LogUtils.i(initDataFromJson(jsonEncode(response.data)));
+              final initData = initDataFromJson(jsonEncode(response.data));
+              final initUser = initData.initUser;
+              EasyLoading.dismiss();
+              return User.signedIn(
+                  id: initUser?.id,
+                  token: '',
+                  firstName: initUser?.firstName,
+                  lastName: initUser?.lastName,
+                  phoneNumber: initUser?.phoneNumber,
+                  email: initUser?.email);
             }
           }
           return const User(id: '', token: '');
