@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tonghua_task/application/authentication/auth_controller.dart';
 import 'package:tonghua_task/common/router/router_path.dart';
 
 import '../../common/state/auth.dart';
@@ -78,7 +79,7 @@ class SigneInPage extends ConsumerWidget {
                     if (kDebugMode) {
                       print('密码:${passwordTextEditingController.text}');
                     }
-                    ref.watch(authNotifierProvider.notifier).login(
+                    ref.watch(signeInProvider.notifier).signInWithUsernameAndPassword(
                           usernameTextEditingController.text,
                           passwordTextEditingController.text,
                         );

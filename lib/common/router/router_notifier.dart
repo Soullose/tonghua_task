@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tonghua_task/common/router/router_path.dart';
-import 'package:tonghua_task/model/user.dart';
 
 import '../state/auth.dart';
 
@@ -16,7 +15,7 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
   @override
   FutureOr<void> build() async {
     isAuth = await ref.watch(authNotifierProvider.selectAsync((data) => data
-        .map((user) => false, signedIn: (_) => true, signedOut: (_) => false)));
+        .map( signedIn: (_) => true, signedOut: (_) => false)));
 
     log('isAuth:--$isAuth');
     ref.listenSelf((previous, next) {
