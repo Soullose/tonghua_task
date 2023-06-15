@@ -9,8 +9,11 @@ class SingleTaskPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
-      body: Center(
-        child: Text('单车任务'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+
+        ],
       ),
     );
   }

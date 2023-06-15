@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tonghua_task/application/authentication/i_auth_facade.dart';
-import 'package:tonghua_task/model/user.dart';
 
 import 'auth_facade.dart';
 

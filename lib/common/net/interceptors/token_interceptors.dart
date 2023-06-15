@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tonghua_task/common/storage/shared_preferences_provider.dart';
+
+import '../../storage/shared_preferences_provider.dart';
+import '../http_constant.dart';
 
 class TokenInterceptors extends QueuedInterceptorsWrapper {
-  // String? _token;
 
   TokenInterceptors({required this.ref});
 
   final Ref ref;
+
+  final String headerKey = 'authorization';
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -16,9 +21,8 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
     if (kDebugMode) {
       print('-------$authorizationCode');
     }
-    // final authorizationCode = UserStore.to.token;
     if (authorizationCode != null) {
-      options.headers['authorization'] = authorizationCode;
+      options.headers[headerKey] = authorizationCode;
     }
     super.onRequest(options, handler);
   }
@@ -36,7 +40,7 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == HttpStatus.unauthorized) {
       if (kDebugMode) {
         print('the token has expired, need to receive new token');
       }
@@ -46,19 +50,17 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
   }
 
   void saveAuthorization(Response<dynamic> response) async {
-    final String authorization = response.headers.value('authorization')!;
+    final String authorization = response.headers.value(headerKey)!;
     if (kDebugMode) {
       print('token:$authorization');
     }
-    // UserStore.to
-    //     .setAuthorization(response.headers.value('authorization') ?? '');
     final preferences = ref.watch(sharedPreferencesProvider);
 
-    preferences.setString('token', authorization);
+    preferences.setString(tokenPreferencesKey, authorization);
   }
 
   String? getToken() {
     final preferences = ref.watch(sharedPreferencesProvider);
-    return preferences.getString('token');
+    return preferences.getString(tokenPreferencesKey);
   }
 }

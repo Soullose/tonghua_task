@@ -5,11 +5,11 @@ part "auth_events.freezed.dart";
 @freezed
 class AuthEvents with _$AuthEvents {
   const factory AuthEvents.usernameChanged({required String? username}) =
-  usernameChanged;
+      usernameChanged;
 
   const factory AuthEvents.passwordChanged({required String? password}) =
-  PasswordChanged;
+      PasswordChanged;
 
   const factory AuthEvents.signInWithUsernameAndPasswordPressed() =
-  SignInWithUsernameAndPasswordPressed;
+      SignInWithUsernameAndPasswordPressed;
 }

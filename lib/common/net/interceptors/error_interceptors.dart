@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:tonghua_task/common/utils/log_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/log_utils.dart';
 import '../result_data.dart';
 
 class ErrorInterceptors extends InterceptorsWrapper {
@@ -9,7 +14,6 @@ class ErrorInterceptors extends InterceptorsWrapper {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     //没有网络
-    // bool isConnectivity = await BasicUtils.checkConnectivity();
     var connectivityResult = await (Connectivity().checkConnectivity());
 
     if (connectivityResult == ConnectivityResult.none) {
@@ -24,15 +28,6 @@ class ErrorInterceptors extends InterceptorsWrapper {
             ),
             message: "网络错误未连接网络"),
       );
-      // handler.resolve(response)
-      // return handler.reject(DioError(
-      //     requestOptions: options,
-      //     type: DioErrorType.unknown,
-      //     response: Response(
-      //       statusCode: -1,
-      //       requestOptions: options,
-      //       data: ResultData("网络错误", false, -1),
-      //     )));
     }
     super.onRequest(options, handler);
   }
@@ -48,9 +43,10 @@ class ErrorInterceptors extends InterceptorsWrapper {
     } else if (err.type == DioExceptionType.sendTimeout) {
       errorDescription = "发送数据超时";
     } else if (err.type == DioExceptionType.badResponse) {
-      if (err.response!.statusCode == 401) {
+      if (err.response!.statusCode == HttpStatus.unauthorized) {
         errorDescription = "登录过期，请重新登录";
-      } else if (err.response!.statusCode == 500) {
+      } else if (err.response!.statusCode ==
+          HttpStatus.internalServerError) {
         errorDescription = "服务器内部错误";
       } else {
         errorDescription = "网络请求出错";
@@ -61,12 +57,12 @@ class ErrorInterceptors extends InterceptorsWrapper {
       errorDescription = "网络请求出错";
     }
     LogUtils.e(errorDescription);
-    // Fluttertoast.showToast(
-    //     msg: errorDescription,
-    //     fontSize: 16.sp,
-    //     backgroundColor: Colors.white,
-    //     textColor: Colors.black,
-    //     gravity: ToastGravity.CENTER);
+    Fluttertoast.showToast(
+        msg: errorDescription,
+        fontSize: 16.sp,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        gravity: ToastGravity.CENTER);
     super.onError(err, handler);
   }
 }

@@ -1,20 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tonghua_task/application/authentication/auth_controller.dart';
 import 'package:tonghua_task/common/state/auth_state.dart';
-import 'package:tonghua_task/common/state/user_state.dart';
-import 'package:tonghua_task/common/utils/log_utils.dart';
-import 'package:tonghua_task/constacts/api_path.dart';
 
 import '../../model/init_data/init_data.dart';
-import '../../model/user.dart';
-import '../net/http_client.dart';
-import '../storage/basic_storage_provider.dart';
 import '../storage/shared_preferences_provider.dart';
 
 part 'auth.g.dart';
@@ -59,48 +49,13 @@ class AuthNotifier extends _$AuthNotifier {
 
   /// Mock of a successful login attempt, which results come from the network.
   Future<void> login(String username, String password) async {
-    // final httpManager = ref.read(netProvider.notifier);
-    // final userState = ref.watch(userStateProvider);
-    final signeInEvent = ref.watch(signeInProvider.notifier);
     sharedPreferences.remove(_sharedPrefsCookieKey);
     state = const AsyncValue.loading();
     state = await AsyncValue.guard<AuthState>(() async {
-      // EasyLoading.show(
-      //     dismissOnTap: true,
-      //     indicator: const CircularProgressIndicator(),
-      //     maskType: EasyLoadingMaskType.clear);
       return Future.delayed(
         networkRoundTripTime,
         () async {
-          // signeInEvent.signInWithUsernameAndPassword(username, password);
-          // dynamic response = await httpManager.netFetch(
-          //     "${ref.watch(serveAddress)}${ApiPath.signInUrl}",
-          //     data: {
-          //       "username": username,
-          //       "password": password,
-          //       "rememberMe": false
-          //     },
-          //     method: DioMethod.post);
-          // if (response.code == 200) {
-          //   dynamic response = await httpManager.netFetch(
-          //       "${ref.watch(serveAddress)}${ApiPath.initUrl}",
-          //       method: DioMethod.get);
-          //   if (response.code == 200) {
-          //     final initData = initDataFromJson(jsonEncode(response.data));
-          //     final initUser = initData.initUser;
-          //     EasyLoading.dismiss(animation: true);
-          //     // ref.read(userStateProvider.notifier).setInitUser(initUser!);
-          //     // userState.value;
-          //     return User.signedIn(
-          //         id: initUser?.id,
-          //         token: '',
-          //         firstName: initUser?.firstName,
-          //         lastName: initUser?.lastName,
-          //         phoneNumber: initUser?.phoneNumber,
-          //         email: initUser?.email);
-          //   }
-          // }
-          return AuthState.signedIn(username: username,password: password);
+          return AuthState.signedIn(username: username, password: password);
         },
       );
     });
@@ -140,7 +95,6 @@ class AuthNotifier extends _$AuthNotifier {
   //     );
   //   });
   // }
-
 }
 
 /// Simple mock of a 401 exception

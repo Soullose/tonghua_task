@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,7 +17,8 @@ class ResponseInterceptors extends InterceptorsWrapper {
       var header = response.headers[Headers.contentTypeHeader];
       if (header.toString().contains("text")) {
         value = ResultData(response.data, true, response.statusCode);
-      } else if (response.statusCode! >= 200 && response.statusCode! < 300) {
+      } else if (response.statusCode! >= HttpStatus.ok &&
+          response.statusCode! < HttpStatus.multipleChoices) {
         value = ResultData(response.data, true, response.statusCode,
             headers: response.headers);
       } else {}

@@ -14,7 +14,7 @@ class TaskMonitorPage extends ConsumerWidget {
 
     return Scaffold(
       body: Center(
-        child: Text('任务监控${userState.value?.firstName }'),
+        child: Text('任务监控${userState.value}'),
       ),
     );
   }

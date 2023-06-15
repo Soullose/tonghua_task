@@ -7,7 +7,7 @@ import 'interceptors/cookie_interceptors.dart';
 import 'interceptors/error_interceptors.dart';
 import 'interceptors/header_interceptor.dart';
 import 'interceptors/response_interceptors.dart';
-import 'interceptors/token_interceptors.dart';
+// import 'interceptors/token_interceptors.dart';
 import 'result_data.dart';
 
 // class HttpManager {

@@ -5,7 +5,7 @@ import 'package:tonghua_task/common/router/router_notifier.dart';
 import 'package:tonghua_task/common/router/router_path.dart';
 import 'package:tonghua_task/modules/main_wrapper/index.dart';
 import 'package:tonghua_task/modules/setting/view.dart';
-import 'package:tonghua_task/modules/signe_in/view.dart';
+import 'package:tonghua_task/modules/sign_in/view.dart';
 import 'package:tonghua_task/modules/single_task/view.dart';
 import 'package:tonghua_task/modules/task_monitor/view.dart';
 import 'package:tonghua_task/modules/welcome/welcome_page.dart';
@@ -40,7 +40,7 @@ List<RouteBase> get routes => [
       GoRoute(
         path: RouterPath.signIn.path,
         name: RouterPath.signIn.name,
-        builder: (_, __) => const SigneInPage(),
+        builder: (_, __) => const SignInPage(),
       ),
       //设置页
       GoRoute(

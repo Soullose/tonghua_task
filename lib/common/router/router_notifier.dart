@@ -14,8 +14,8 @@ class RouterNotifier extends AutoDisposeAsyncNotifier<void>
 
   @override
   FutureOr<void> build() async {
-    isAuth = await ref.watch(authNotifierProvider.selectAsync((data) => data
-        .map( signedIn: (_) => true, signedOut: (_) => false)));
+    isAuth = await ref.watch(authNotifierProvider.selectAsync(
+        (data) => data.map(signedIn: (_) => true, signedOut: (_) => false)));
 
     log('isAuth:--$isAuth');
     ref.listenSelf((previous, next) {
