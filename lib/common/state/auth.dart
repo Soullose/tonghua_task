@@ -2,17 +2,17 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tonghua_task/common/state/auth_state.dart';
 
 import '../../model/init_data/init_data.dart';
 import '../storage/shared_preferences_provider.dart';
+import 'auth_state.dart';
 
 part 'auth.g.dart';
 
 @riverpod
 class AuthNotifier extends _$AuthNotifier {
   late SharedPreferences sharedPreferences;
-  static const _sharedPrefsKey = 'token';
+  // static const _sharedPrefsKey = 'token';
   static const _sharedPrefsCookieKey = 'cookie';
 
   @override
@@ -20,26 +20,27 @@ class AuthNotifier extends _$AuthNotifier {
     sharedPreferences = ref.watch(sharedPreferencesProvider);
     // _persistenceRefreshLogic();
 
-    return await _loginRecoveryAttempt();
+    // return await _loginRecoveryAttempt();
+    return const AuthState.signedOut();
   }
 
   /// Tries to perform a login with the saved token on the persistant storage.
   /// If _anything_ goes wrong, deletes the internal token and returns a [User.signedOut].
-  Future<AuthState> _loginRecoveryAttempt() async {
-    try {
-      final savedToken = sharedPreferences.getString(_sharedPrefsKey);
-      if (savedToken == null) {
-        throw const UnauthorizedException(
-          "Couldn't find the authentication token",
-        );
-      }
-
-      return await _loginWithToken(savedToken);
-    } catch (_, __) {
-      await sharedPreferences.remove(_sharedPrefsKey);
-      return const AuthState.signedOut();
-    }
-  }
+  // Future<AuthState> _loginRecoveryAttempt() async {
+  //   try {
+  //     final savedToken = sharedPreferences.getString(_sharedPrefsKey);
+  //     if (savedToken == null) {
+  //       throw const UnauthorizedException(
+  //         "Couldn't find the authentication token",
+  //       );
+  //     }
+  //
+  //     return await _loginWithToken(savedToken);
+  //   } catch (_, __) {
+  //     await sharedPreferences.remove(_sharedPrefsKey);
+  //     return const AuthState.signedOut();
+  //   }
+  // }
 
   /// Mock of a request performed on logout (might be common, or not, whatevs).
   Future<void> logout() async {
@@ -63,16 +64,16 @@ class AuthNotifier extends _$AuthNotifier {
 
   /// Mock of a login request performed with a saved token.
   /// If such request fails, this method will throw an [UnauthorizedException].
-  Future<AuthState> _loginWithToken(String token) async {
-    final logInAttempt = await Future.delayed(
-      networkRoundTripTime,
-      () => true,
-    );
-
-    if (logInAttempt) return const AuthState.signedOut();
-
-    throw const UnauthorizedException('401 Unauthorized or something');
-  }
+  // Future<AuthState> _loginWithToken(String token) async {
+  //   final logInAttempt = await Future.delayed(
+  //     networkRoundTripTime,
+  //     () => true,
+  //   );
+  //
+  //   if (logInAttempt) return const AuthState.signedOut();
+  //
+  //   throw const UnauthorizedException('401 Unauthorized or something');
+  // }
 
   /// Internal method used to listen authentication state changes.
   /// When the auth object is in a loading state, nothing happens.
@@ -98,11 +99,11 @@ class AuthNotifier extends _$AuthNotifier {
 }
 
 /// Simple mock of a 401 exception
-class UnauthorizedException implements Exception {
-  final String message;
-
-  const UnauthorizedException(this.message);
-}
+// class UnauthorizedException implements Exception {
+//   final String message;
+//
+//   const UnauthorizedException(this.message);
+// }
 
 /// Mock of the duration of a network request
 const networkRoundTripTime = Duration(milliseconds: 200);

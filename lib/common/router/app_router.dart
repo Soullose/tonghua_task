@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tonghua_task/common/router/router_notifier.dart';
-import 'package:tonghua_task/common/router/router_path.dart';
-import 'package:tonghua_task/modules/main_wrapper/index.dart';
-import 'package:tonghua_task/modules/setting/view.dart';
-import 'package:tonghua_task/modules/sign_in/view.dart';
-import 'package:tonghua_task/modules/single_task/view.dart';
-import 'package:tonghua_task/modules/task_monitor/view.dart';
-import 'package:tonghua_task/modules/welcome/welcome_page.dart';
+
+import '../../modules/main_wrapper/view.dart';
+import '../../modules/setting/view.dart';
+import '../../modules/sign_in/view.dart';
+import '../../modules/single_task/view.dart';
+import '../../modules/task_monitor/view.dart';
+import '../../modules/welcome/welcome_page.dart';
+import 'router_notifier.dart';
+import 'router_path.dart';
 
 final GlobalKey<NavigatorState> _rootKey =
     GlobalKey<NavigatorState>(debugLabel: 'rootKey');

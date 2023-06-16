@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tonghua_task/common/router/router_path.dart';
 
 import '../state/auth.dart';
+import 'router_path.dart';
 
 class RouterNotifier extends AutoDisposeAsyncNotifier<void>
     implements Listenable {

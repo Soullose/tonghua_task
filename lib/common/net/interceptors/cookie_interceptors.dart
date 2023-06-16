@@ -2,9 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../storage/shared_preferences_provider.dart';
+import '../../storage/basic_storage_provider.dart';
 import '../../utils/log_utils.dart';
-import '../http_constant.dart';
 
 class CookieInterceptors extends QueuedInterceptorsWrapper {
   CookieInterceptors({required this.ref});
@@ -17,7 +16,7 @@ class CookieInterceptors extends QueuedInterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final cookie = getCookie();
-    if (cookie != null) {
+    if (cookie!.isNotEmpty) {
       options.headers[requestHeaderKey] = cookie;
     }
     LogUtils.i(options.headers);
@@ -28,7 +27,7 @@ class CookieInterceptors extends QueuedInterceptorsWrapper {
   void onResponse(
       Response<dynamic> response, ResponseInterceptorHandler handler) {
     final cookie = getCookie();
-    if (cookie == null) {
+    if (cookie!.isEmpty) {
       saveCookie(response);
     }
     super.onResponse(response, handler);
@@ -39,13 +38,12 @@ class CookieInterceptors extends QueuedInterceptorsWrapper {
     if (kDebugMode) {
       print('cookie:$setCookie');
     }
-    final preferences = ref.watch(sharedPreferencesProvider);
-
-    preferences.setStringList(cookiePreferencesKey, setCookie);
+    final cookie = ref.read(cookieProvider.notifier);
+    cookie.state = setCookie;
   }
 
   List<String>? getCookie() {
-    final preferences = ref.watch(sharedPreferencesProvider);
-    return preferences.getStringList(cookiePreferencesKey);
+    final cookie = ref.read(cookieProvider.notifier);
+    return cookie.state;
   }
 }

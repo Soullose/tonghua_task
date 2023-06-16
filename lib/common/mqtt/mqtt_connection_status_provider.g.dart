@@ -7,7 +7,7 @@ part of 'mqtt_connection_status_provider.dart';
 // **************************************************************************
 
 String _$mqttClientConnectStatusHash() =>
-    r'5d0c051e111e1728a145ddac4a4d6d1d1ad2f646';
+    r'60b83e39cf5d415f98456d3e62dd7850ba3cb2e1';
 
 /// See also [MqttClientConnectStatus].
 @ProviderFor(MqttClientConnectStatus)

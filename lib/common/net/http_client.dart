@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'interceptors/cookie_interceptors.dart';
 import 'interceptors/error_interceptors.dart';
@@ -76,7 +76,11 @@ import 'result_data.dart';
 //   }
 // }
 
-class HttpManager extends AutoDisposeAsyncNotifier {
+part 'http_client.g.dart';
+
+// @Riverpod(keepAlive: true)
+@riverpod
+class HttpManager extends _$HttpManager {
   @override
   FutureOr build() {
     dio.interceptors.add(HeaderInterceptors());
@@ -93,7 +97,8 @@ class HttpManager extends AutoDisposeAsyncNotifier {
 
   // HttpManager() {
   //   dio.interceptors.add(HeaderInterceptors());
-  //   dio.interceptors.add(TokenInterceptors(ref: ref));
+  //   dio.interceptors.add(CookieInterceptors(ref: ref));
+  //   // dio.interceptors.add(TokenInterceptors(ref: ref));
   //   dio.interceptors.add(ErrorInterceptors());
   //   dio.interceptors.add(ResponseInterceptors());
   // }
@@ -158,7 +163,9 @@ class HttpManager extends AutoDisposeAsyncNotifier {
 //   FutureOr<HttpManager> build() => HttpManager(ref: ref);
 // }
 
-final netProvider = AutoDisposeAsyncNotifierProvider(() => HttpManager());
+// final netProvider = AsyncNotifierProvider.autoDispose(() {
+//   return HttpManager();
+// });
 
 enum DioMethod {
   get,

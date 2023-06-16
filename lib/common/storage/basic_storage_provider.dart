@@ -19,3 +19,21 @@ final ipAddressProvider = StateProvider<String>((ref) {
 
 final serveAddress = StateProvider<String>(
     (ref) => "http://${ref.watch(ipAddressProvider)}:8080");
+
+final cookieProvider = StateProvider<List<String>>((ref) {
+  final preferences = ref.watch(sharedPreferencesProvider);
+  final cookie = preferences.getStringList('cookie') ?? [];
+  ref.listenSelf((previous, next) {
+    preferences.setStringList('cookie', next);
+  });
+  return cookie;
+});
+
+final tokenProvider = StateProvider<String>((ref) {
+  final preferences = ref.watch(sharedPreferencesProvider);
+  final token = preferences.getString('token') ?? '';
+  ref.listenSelf((previous, next) {
+    preferences.setString('token', next);
+  });
+  return token;
+});

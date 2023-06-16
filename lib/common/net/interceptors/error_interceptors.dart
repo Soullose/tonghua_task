@@ -45,8 +45,7 @@ class ErrorInterceptors extends InterceptorsWrapper {
     } else if (err.type == DioExceptionType.badResponse) {
       if (err.response!.statusCode == HttpStatus.unauthorized) {
         errorDescription = "登录过期，请重新登录";
-      } else if (err.response!.statusCode ==
-          HttpStatus.internalServerError) {
+      } else if (err.response!.statusCode == HttpStatus.internalServerError) {
         errorDescription = "服务器内部错误";
       } else {
         errorDescription = "网络请求出错";

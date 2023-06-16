@@ -3,12 +3,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../storage/shared_preferences_provider.dart';
-import '../http_constant.dart';
+import 'package:tonghua_task/common/storage/basic_storage_provider.dart';
 
 class TokenInterceptors extends QueuedInterceptorsWrapper {
-
   TokenInterceptors({required this.ref});
 
   final Ref ref;
@@ -21,7 +18,7 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
     if (kDebugMode) {
       print('-------$authorizationCode');
     }
-    if (authorizationCode != null) {
+    if (authorizationCode!.isNotEmpty) {
       options.headers[headerKey] = authorizationCode;
     }
     super.onRequest(options, handler);
@@ -31,10 +28,9 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
   void onResponse(
       Response<dynamic> response, ResponseInterceptorHandler handler) {
     final authorizationCode = getToken();
-    if (authorizationCode == null) {
+    if (authorizationCode!.isEmpty) {
       saveAuthorization(response);
     }
-
     super.onResponse(response, handler);
   }
 
@@ -54,13 +50,12 @@ class TokenInterceptors extends QueuedInterceptorsWrapper {
     if (kDebugMode) {
       print('token:$authorization');
     }
-    final preferences = ref.watch(sharedPreferencesProvider);
-
-    preferences.setString(tokenPreferencesKey, authorization);
+    final token = ref.read(tokenProvider.notifier);
+    token.state = authorization;
   }
 
   String? getToken() {
-    final preferences = ref.watch(sharedPreferencesProvider);
-    return preferences.getString(tokenPreferencesKey);
+    final token = ref.read(tokenProvider.notifier);
+    return token.state;
   }
 }

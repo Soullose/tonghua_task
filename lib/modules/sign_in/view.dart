@@ -19,7 +19,7 @@ class SignInPage extends ConsumerWidget {
         TextEditingController(text: 'admin');
     TextEditingController passwordTextEditingController =
         TextEditingController(text: 'admin');
-
+    final signInProvider = ref.watch(signeInProvider.notifier);
     return Scaffold(
       appBar: null,
       body: Container(
@@ -78,12 +78,17 @@ class SignInPage extends ConsumerWidget {
                     if (kDebugMode) {
                       print('密码:${passwordTextEditingController.text}');
                     }
-                    ref
-                        .watch(signeInProvider.notifier)
+                    signInProvider
                         .signInWithUsernameAndPassword(
                           usernameTextEditingController.text,
                           passwordTextEditingController.text,
-                        );
+                        )
+                        .then((value) => signInProvider
+                            .initData(
+                              usernameTextEditingController.text,
+                              passwordTextEditingController.text,
+                            )
+                            .then((value) => signInProvider.clientMqtt()));
                   },
                   style: ButtonStyle(
                     backgroundColor:

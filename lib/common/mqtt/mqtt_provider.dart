@@ -87,6 +87,12 @@ class Mqtt extends _$Mqtt {
             payloadDecoded = jsonDecode(message);
             log('received topic: "$topic", message<dynamic>: "$message"');
 
+            List<String> topicList = topic.split("/");
+            String i = topicList[2];
+            String j = topicList[3];
+            if(kDebugMode) {
+              print('$i $j $payloadDecoded');
+            }
             // if that fails, it's probably a string
           } on FormatException catch (_) {
             payloadDecoded = message;
