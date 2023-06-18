@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tonghua_task/modules/setting/state.dart';
 
 import '../../common/storage/basic_storage_provider.dart';
+import 'widget/theme_mode_list_tile.dart';
 
 class SettingPage extends ConsumerWidget {
   const SettingPage({
@@ -78,6 +79,8 @@ class SettingPage extends ConsumerWidget {
               );
             },
           ),
+
+          const ThemeModeListTile(),
         ],
       ),
     );

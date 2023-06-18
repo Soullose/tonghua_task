@@ -15,6 +15,13 @@ class SignInPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final MediaQueryData media = MediaQuery.of(context);
+    final bool useTwoColumns = media.size.height < 500;
+    final double spaceFactor = useTwoColumns ? 0.5 : 1;
+
     TextEditingController usernameTextEditingController =
         TextEditingController(text: 'admin');
     TextEditingController passwordTextEditingController =
@@ -26,51 +33,50 @@ class SignInPage extends ConsumerWidget {
         margin: const EdgeInsets.all(14),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 40, bottom: 46),
-                child: Center(
-                  child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 38,
-                      child: SvgPicture.asset('assets/images/user.svg')),
-                ),
+
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 40, bottom: 46),
+              //   child: Center(
+              //     child: CircleAvatar(
+              //         backgroundColor: Colors.transparent,
+              //         radius: 38,
+              //         child: SvgPicture.asset(
+              //           'assets/images/user.svg',
+              //           color: Colors.black,
+              //         )),
+              //   ),
+              // ),
+              const SizedBox(height: 64),
+              Text(
+                '登录',
+                style: textTheme.headlineLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
+              SizedBox(height: 16 * spaceFactor),
               TextField(
                 controller: usernameTextEditingController,
                 // keyboardType: ,
                 decoration: const InputDecoration(
-                  hintText: '请输入账号',
-                  prefixIcon: Padding(
-                    padding: EdgeInsetsDirectional.only(
-                        top: 14, end: 22, bottom: 18),
-                    child: Text(
-                      '账号',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
+                    hintText: '请输入账号',
+                    labelText: '账号',
+                    prefixIcon: Icon(Icons.person)),
               ),
+              SizedBox(height: 16 * spaceFactor),
               TextField(
                 controller: passwordTextEditingController,
                 decoration: const InputDecoration(
                   hintText: '请输入密码',
-                  prefixIcon: Padding(
-                    padding: EdgeInsetsDirectional.only(
-                        top: 14, end: 22, bottom: 18),
-                    child: Text(
-                      '密码',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
+                  labelText: '密码',
+                  prefixIcon: Icon(Icons.key),
                 ),
               ),
               const SizedBox(height: 58.0),
               SizedBox(
                 width: double.infinity,
-                child: TextButton(
+                child: ElevatedButton(
                   onPressed: () async {
                     if (kDebugMode) {
                       print('用户名:${usernameTextEditingController.text}');
@@ -90,15 +96,15 @@ class SignInPage extends ConsumerWidget {
                             )
                             .then((value) => signInProvider.clientMqtt()));
                   },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Colors.blue),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                    ),
-                  ),
+                  // style: ButtonStyle(
+                  //   backgroundColor:
+                  //       const MaterialStatePropertyAll(Colors.blue),
+                  //   shape: MaterialStatePropertyAll(
+                  //     RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(6.0),
+                  //     ),
+                  //   ),
+                  // ),
                   // fillColor: Colors.blue,
                   // elevation: 0.0,
                   // padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -107,7 +113,7 @@ class SignInPage extends ConsumerWidget {
                   // ),
                   child: Text(
                     '登录',
-                    style: TextStyle(color: Colors.white, fontSize: 22.sp),
+                    style: TextStyle(fontSize: 22.sp),
                   ),
                 ),
               ),
@@ -119,7 +125,7 @@ class SignInPage extends ConsumerWidget {
                 leading: const Icon(Icons.settings),
                 title: Text(
                   '设置',
-                  style: TextStyle(color: Colors.black, fontSize: 18.sp),
+                  style: TextStyle(fontSize: 18.sp),
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {

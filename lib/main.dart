@@ -3,9 +3,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tonghua_task/common/theme/models/app_theme.dart';
 
 import 'common/router/app_router.dart';
 import 'common/storage/shared_preferences_provider.dart';
+import 'common/theme/models/app_theme_mode.dart';
 import 'common/utils/state_logger/state_logger.dart';
 
 Future<void> main() async {
@@ -29,6 +31,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final themeMode = ref.watch(themeModeProvider);
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -37,9 +40,9 @@ class MyApp extends ConsumerWidget {
         return MaterialApp.router(
           title: 'TongHua_Task',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.light(useMaterial3: true),
-          darkTheme: ThemeData.light(useMaterial3: true),
-          themeMode: ThemeMode.light,
+          theme: ref.watch(lightThemeProvider),
+          darkTheme: ref.watch(darkThemeProvider),
+          themeMode: themeMode,
           routerConfig: router,
           builder: EasyLoading.init(),
         );

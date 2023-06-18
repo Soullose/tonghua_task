@@ -35,19 +35,42 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+
   dio: ^5.2.1+1
+
   connectivity_plus: ^4.0.1
+
+  # Riverpod, next generation version of Provider (by Remi Rousselet).
+  # https://pub.dev/packages/flutter_riverpod
   hooks_riverpod: ^2.3.6
+
   riverpod_annotation: ^2.1.1
+
   go_router: ^7.1.1
+
   #  uuid: ^3.0.7
+
+  # Store value pair shared preference data, by Google flutter.dev.
+  # https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.1.1
+
   mqtt_client: ^9.8.1
+
   flutter_screenutil: ^5.8.4
+
   flutter_svg: ^2.0.7
+
   flutter_easyloading: ^3.0.5
+
   fluttertoast: ^8.2.2
+
+  # Used for surface colored branded theming. (by rydmike.com)
+  # https://pub.dev/packages/flex_color_scheme
+  flex_color_scheme: ^7.1.2
+
   freezed_annotation: ^2.2.0
+
   json_annotation: ^4.8.1
 
 dev_dependencies:

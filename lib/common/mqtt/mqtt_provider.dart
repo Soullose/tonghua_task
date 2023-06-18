@@ -90,7 +90,7 @@ class Mqtt extends _$Mqtt {
             List<String> topicList = topic.split("/");
             String i = topicList[2];
             String j = topicList[3];
-            if(kDebugMode) {
+            if (kDebugMode) {
               print('$i $j $payloadDecoded');
             }
             // if that fails, it's probably a string
