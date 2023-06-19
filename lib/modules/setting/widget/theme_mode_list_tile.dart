@@ -11,12 +11,12 @@ class ThemeModeListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ThemeMode mode = ref.watch(themeModeProvider);
+    final ThemeMode mode = ref.watch(themeModeProvider).value!;
     return ListTile(
-      title: const Text('Theme mode'),
-      subtitle: Text('Theme ${mode.name}'),
+      title: const Text('外观设置'),
+      subtitle: Text('${mode.name} 模式'),
       onTap: () {
-        switch (ref.read(themeModeProvider)) {
+        switch (ref.read(themeModeProvider).value!) {
           case ThemeMode.light:
             ref.read(themeModeProvider.notifier).change(ThemeMode.system);
             break;

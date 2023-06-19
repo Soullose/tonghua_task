@@ -79,7 +79,6 @@ class SettingPage extends ConsumerWidget {
               );
             },
           ),
-
           const ThemeModeListTile(),
         ],
       ),

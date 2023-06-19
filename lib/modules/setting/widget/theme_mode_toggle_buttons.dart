@@ -10,7 +10,7 @@ class ThemeModeToggleButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ThemeMode themeMode = ref.watch(themeModeProvider);
+    final ThemeMode themeMode = ref.watch(themeModeProvider).value!;
     final List<bool> isSelected = <bool>[
       themeMode == ThemeMode.light,
       themeMode == ThemeMode.system,

@@ -42,7 +42,7 @@ class MyApp extends ConsumerWidget {
           debugShowCheckedModeBanner: false,
           theme: ref.watch(lightThemeProvider),
           darkTheme: ref.watch(darkThemeProvider),
-          themeMode: themeMode,
+          themeMode: themeMode.value,
           routerConfig: router,
           builder: EasyLoading.init(),
         );
