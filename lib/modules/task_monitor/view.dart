@@ -14,25 +14,25 @@ class TaskMonitorPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userState = ref.watch(userStateProvider);
-    final httpManager = ref.read(httpManagerProvider.notifier);
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('任务监控${userState.value}'),
-          ElevatedButton(
-            onPressed: () async {
-              dynamic response = await httpManager.netFetch(
-                  "${ref.watch(serveAddress)}${ApiPath.initUrl}",
-                  method: DioMethod.get);
-
-              LogUtils.i(response.data);
-            },
-            child: const Text('测试'),
-          ),
-        ],
+      appBar: AppBar(
+        title: const Text('监控'),
+      ),
+      body: RepaintBoundary(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('ListTile selected'),
+              subtitle: const Text('Selected list tile sub title'),
+              trailing: const Text('Trailing'),
+              selected: true,
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
     );
   }

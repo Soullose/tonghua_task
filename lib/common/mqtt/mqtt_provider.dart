@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tonghua_task/common/utils/log_utils.dart';
 
 import '../storage/basic_storage_provider.dart';
 import '../utils/nanoid/nanoid.dart';
@@ -20,7 +21,8 @@ class Mqtt extends _$Mqtt {
 
   @override
   build() {
-    final ip = ref.watch(ipAddressProvider);
+    final ip = ref.watch(mqttAddress);
+    LogUtils.i(ip);
     client = MqttServerClient.withPort(ip, nanoid(), 1883);
     ref.onDispose(() {
       if (kDebugMode) {
@@ -86,13 +88,10 @@ class Mqtt extends _$Mqtt {
           try {
             payloadDecoded = jsonDecode(message);
             log('received topic: "$topic", message<dynamic>: "$message"');
+            // payloadDecoded
 
-            List<String> topicList = topic.split("/");
-            String i = topicList[2];
-            String j = topicList[3];
-            if (kDebugMode) {
-              print('$i $j $payloadDecoded');
-            }
+
+
             // if that fails, it's probably a string
           } on FormatException catch (_) {
             payloadDecoded = message;

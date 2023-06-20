@@ -25,6 +25,7 @@ class SignInPage extends ConsumerWidget {
     TextEditingController passwordTextEditingController =
         TextEditingController(text: 'admin');
     final signInProvider = ref.watch(signeInProvider.notifier);
+
     return Scaffold(
       appBar: null,
       body: Container(
@@ -63,6 +64,7 @@ class SignInPage extends ConsumerWidget {
               ),
               SizedBox(height: 16 * spaceFactor),
               TextField(
+                obscureText: true,
                 controller: passwordTextEditingController,
                 decoration: const InputDecoration(
                   hintText: '请输入密码',

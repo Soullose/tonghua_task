@@ -20,6 +20,9 @@ final ipAddressProvider = StateProvider<String>((ref) {
 final serveAddress = StateProvider<String>(
     (ref) => "http://${ref.watch(ipAddressProvider)}:8080");
 
+final mqttAddress =
+    StateProvider<String>((ref) => ref.watch(ipAddressProvider));
+
 final cookieProvider = StateProvider<List<String>>((ref) {
   final preferences = ref.watch(sharedPreferencesProvider);
   final cookie = preferences.getStringList('cookie') ?? [];
