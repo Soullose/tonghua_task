@@ -10,6 +10,9 @@ class ApiPath {
   //登出url
   static const String signOutUrl = '$sysUrl/logout';
 
+  //获取调度器状态
+  static const String statusUrl = '/mock/wms/scheduler/status';
+
   //初始化用户数据
   static const String initUrl = '$sysUrl/framework/init_data';
 

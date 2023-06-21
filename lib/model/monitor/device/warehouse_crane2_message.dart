@@ -8,9 +8,11 @@ import 'dart:convert';
 part 'warehouse_crane2_message.freezed.dart';
 part 'warehouse_crane2_message.g.dart';
 
-WarehouseCrane2Message warehouseCrane2MessageFromJson(String str) => WarehouseCrane2Message.fromJson(json.decode(str));
+WarehouseCrane2Message warehouseCrane2MessageFromJson(String str) =>
+    WarehouseCrane2Message.fromJson(json.decode(str));
 
-String warehouseCrane2MessageToJson(WarehouseCrane2Message data) => json.encode(data.toJson());
+String warehouseCrane2MessageToJson(WarehouseCrane2Message data) =>
+    json.encode(data.toJson());
 
 @freezed
 class WarehouseCrane2Message with _$WarehouseCrane2Message {
@@ -22,5 +24,6 @@ class WarehouseCrane2Message with _$WarehouseCrane2Message {
     String? payload,
   }) = _WarehouseCrane2Message;
 
-  factory WarehouseCrane2Message.fromJson(Map<String, dynamic> json) => _$WarehouseCrane2MessageFromJson(json);
+  factory WarehouseCrane2Message.fromJson(Map<String, dynamic> json) =>
+      _$WarehouseCrane2MessageFromJson(json);
 }

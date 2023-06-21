@@ -8,7 +8,8 @@ import 'dart:convert';
 part 'agv2_message.freezed.dart';
 part 'agv2_message.g.dart';
 
-Agv2Message agv2MessageFromJson(String str) => Agv2Message.fromJson(json.decode(str));
+Agv2Message agv2MessageFromJson(String str) =>
+    Agv2Message.fromJson(json.decode(str));
 
 String agv2MessageToJson(Agv2Message data) => json.encode(data.toJson());
 
@@ -22,5 +23,6 @@ class Agv2Message with _$Agv2Message {
     String? payload,
   }) = _Agv2Message;
 
-  factory Agv2Message.fromJson(Map<String, dynamic> json) => _$Agv2MessageFromJson(json);
+  factory Agv2Message.fromJson(Map<String, dynamic> json) =>
+      _$Agv2MessageFromJson(json);
 }

@@ -6,10 +6,16 @@ import '../../../model/monitor/device/platform_crane1_message.dart';
 import '../../../model/monitor/device/platform_crane2_message.dart';
 import '../../../model/monitor/device/warehouse_crane1_message.dart';
 import '../../../model/monitor/device/warehouse_crane2_message.dart';
+import '../../../model/monitor/task/task1_message.dart';
+import '../../../model/monitor/task/task2_message.dart';
 import '../monitor.dart';
 
 class DeviceMonitor {
-  DeviceMonitor._();
+  const DeviceMonitor._();
+
+  static const Task1Message _task1message = Task1Message();
+
+  static const Task2Message _task2message = Task2Message();
 
   static const Agv1Message _agv1message = Agv1Message();
 
@@ -28,12 +34,38 @@ class DeviceMonitor {
       WarehouseCrane2Message();
 
   /// String key used for defining
+  static const String _keyTask1message = 'task1message';
+
+  ///
+  static final AsyncNotifierProvider<Monitor<Task1Message>, Task1Message>
+      task1messageProvider =
+      AsyncNotifierProvider<Monitor<Task1Message>, Task1Message>(
+    () {
+      return Monitor<Task1Message>(defaultValue: _task1message);
+    },
+    name: '${_keyTask1message}Provider',
+  );
+
+  /// String key used for defining
+  static const String _keyTask2message = 'task2message';
+
+  ///
+  static final AsyncNotifierProvider<Monitor<Task2Message>, Task2Message>
+      task2messageProvider =
+      AsyncNotifierProvider<Monitor<Task2Message>, Task2Message>(
+    () {
+      return Monitor<Task2Message>(defaultValue: _task2message);
+    },
+    name: '${_keyTask2message}Provider',
+  );
+
+  /// String key used for defining
   static const String _keyAgv1message = 'agv1message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<Agv1Message>,
-          Agv1Message> agv1messageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<Agv1Message>, Agv1Message>(
+  static final AsyncNotifierProvider<Monitor<Agv1Message>, Agv1Message>
+      agv1messageProvider =
+      AsyncNotifierProvider<Monitor<Agv1Message>, Agv1Message>(
     () {
       return Monitor<Agv1Message>(defaultValue: _agv1message);
     },
@@ -44,9 +76,9 @@ class DeviceMonitor {
   static const String _keyAgv2message = 'agv2message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<Agv2Message>,
-          Agv2Message> agv2messageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<Agv2Message>, Agv2Message>(
+  static final AsyncNotifierProvider<Monitor<Agv2Message>, Agv2Message>
+      agv2messageProvider =
+      AsyncNotifierProvider<Monitor<Agv2Message>, Agv2Message>(
     () {
       return Monitor<Agv2Message>(defaultValue: _agv2message);
     },
@@ -57,9 +89,9 @@ class DeviceMonitor {
   static const String _keyPlatformCrane1Message = 'platformCrane1Message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<PlatformCrane1Message>,
+  static final AsyncNotifierProvider<Monitor<PlatformCrane1Message>,
           PlatformCrane1Message> platformCrane1MessageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<PlatformCrane1Message>,
+      AsyncNotifierProvider<Monitor<PlatformCrane1Message>,
           PlatformCrane1Message>(
     () {
       return Monitor<PlatformCrane1Message>(
@@ -72,9 +104,9 @@ class DeviceMonitor {
   static const String _keyPlatformCrane2Message = 'platformCrane2Message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<PlatformCrane2Message>,
+  static final AsyncNotifierProvider<Monitor<PlatformCrane2Message>,
           PlatformCrane2Message> platformCrane2MessageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<PlatformCrane2Message>,
+      AsyncNotifierProvider<Monitor<PlatformCrane2Message>,
           PlatformCrane2Message>(
     () {
       return Monitor<PlatformCrane2Message>(
@@ -87,9 +119,9 @@ class DeviceMonitor {
   static const String _keyWarehouseCrane1Message = 'warehouseCrane1Message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<WarehouseCrane1Message>,
+  static final AsyncNotifierProvider<Monitor<WarehouseCrane1Message>,
           WarehouseCrane1Message> warehouseCrane1MessageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<WarehouseCrane1Message>,
+      AsyncNotifierProvider<Monitor<WarehouseCrane1Message>,
           WarehouseCrane1Message>(
     () {
       return Monitor<WarehouseCrane1Message>(
@@ -102,9 +134,9 @@ class DeviceMonitor {
   static const String _keyWarehouseCrane2Message = 'warehouseCrane2Message';
 
   ///
-  static final AutoDisposeAsyncNotifierProvider<Monitor<WarehouseCrane2Message>,
+  static final AsyncNotifierProvider<Monitor<WarehouseCrane2Message>,
           WarehouseCrane2Message> warehouseCrane2MessageProvider =
-      AutoDisposeAsyncNotifierProvider<Monitor<WarehouseCrane2Message>,
+      AsyncNotifierProvider<Monitor<WarehouseCrane2Message>,
           WarehouseCrane2Message>(
     () {
       return Monitor<WarehouseCrane2Message>(

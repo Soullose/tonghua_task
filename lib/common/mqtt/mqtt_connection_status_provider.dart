@@ -7,9 +7,9 @@ part 'mqtt_connection_status_provider.g.dart';
 @Riverpod(keepAlive: true)
 class MqttClientConnectStatus extends _$MqttClientConnectStatus {
   @override
-  MqttConnectionState build() {
+  FutureOr<MqttConnectionState> build() {
     ref.listenSelf((previous, next) {
-      switch (next) {
+      switch (next.value!) {
         case MqttConnectionState.connected:
           Fluttertoast.cancel();
           Fluttertoast.showToast(

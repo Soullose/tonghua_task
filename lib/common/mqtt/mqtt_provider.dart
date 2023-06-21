@@ -6,6 +6,7 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tonghua_task/common/utils/log_utils.dart';
+import 'package:tonghua_task/constants/mqtt_topics.dart';
 
 import '../storage/basic_storage_provider.dart';
 import '../utils/nanoid/nanoid.dart';
@@ -20,7 +21,7 @@ class Mqtt extends _$Mqtt {
   late final MqttServerClient client;
 
   @override
-  build() {
+  FutureOr build() {
     final ip = ref.watch(mqttAddress);
     LogUtils.i(ip);
     client = MqttServerClient.withPort(ip, nanoid(), 1883);
@@ -55,13 +56,13 @@ class Mqtt extends _$Mqtt {
     client.pongCallback = pong;
 
     ref.read(mqttClientConnectStatusProvider.notifier).state =
-        MqttConnectionState.connecting;
+        const AsyncValue.data(MqttConnectionState.connecting);
 
     MqttClientConnectionStatus? mqttConnectionStatus =
         await client.connect().catchError(
       (error) {
         ref.read(mqttClientConnectStatusProvider.notifier).state =
-            MqttConnectionState.faulted;
+            const AsyncValue.data(MqttConnectionState.faulted);
         return null;
       },
     );
@@ -87,11 +88,9 @@ class Mqtt extends _$Mqtt {
           dynamic payloadDecoded;
           try {
             payloadDecoded = jsonDecode(message);
-            log('received topic: "$topic", message<dynamic>: "$message"');
+            log('received topic: "$topic", message<dynamic>: "$payloadDecoded"');
             // payloadDecoded
-
-
-
+            MqttTopics(ref: ref).analysis(topic, message);
             // if that fails, it's probably a string
           } on FormatException catch (_) {
             payloadDecoded = message;
@@ -102,13 +101,13 @@ class Mqtt extends _$Mqtt {
     );
 
     ref.read(mqttClientConnectStatusProvider.notifier).state =
-        MqttConnectionState.connected;
+        const AsyncValue.data(MqttConnectionState.connected);
   }
 
   void disconnect() {
     client.disconnect();
     ref.read(mqttClientConnectStatusProvider.notifier).state =
-        MqttConnectionState.disconnected;
+        const AsyncValue.data(MqttConnectionState.disconnected);
   }
 
   void subscribe(String topic) {
@@ -133,7 +132,7 @@ class Mqtt extends _$Mqtt {
 
   void onDisconnected() {
     ref.read(mqttClientConnectStatusProvider.notifier).state =
-        MqttConnectionState.disconnected;
+        const AsyncValue.data(MqttConnectionState.disconnected);
   }
 
   void onSubscribed(String topic) {
