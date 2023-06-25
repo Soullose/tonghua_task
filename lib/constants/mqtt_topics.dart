@@ -1,4 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tonghua_task/model/monitor/task/task_message.dart';
+import 'package:tonghua_task/state/monitor/task/task_monitor.dart';
 
 import '../model/monitor/device/agv1_message.dart';
 import '../model/monitor/device/agv2_message.dart';
@@ -37,11 +39,17 @@ class MqttTopics {
         ref
             .read(DeviceMonitor.task1messageProvider.notifier)
             .set(task1MessageFromJson(data));
+        ref
+            .read(tasKMessageProvider.notifier)
+            .addTaskMessage(taskMessageFromJson(data));
         break;
       case _task2:
         ref
             .read(DeviceMonitor.task2messageProvider.notifier)
             .set(task2MessageFromJson(data));
+        ref
+            .read(tasKMessageProvider.notifier)
+            .addTaskMessage(taskMessageFromJson(data));
         break;
       case _devices:
         String senderId = deviceMessageFromJson(data).senderId!;

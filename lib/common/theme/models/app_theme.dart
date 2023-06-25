@@ -9,7 +9,7 @@ class AppTheme {
   static ThemeData light() {
     final FlexColorScheme flexColorScheme = FlexColorScheme.light(
       // scheme: FlexScheme.aquaBlue,
-      scheme: FlexScheme.material,
+      scheme: FlexScheme.blueM3,
       // colors: _light,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
       blendLevel: 7,
@@ -66,7 +66,7 @@ class AppTheme {
   static ThemeData dark() {
     final FlexColorScheme flexColorScheme = FlexColorScheme.dark(
       // scheme: FlexScheme.aquaBlue,
-      scheme: FlexScheme.material,
+      scheme: FlexScheme.blueM3,
       // colors: _dark,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
       blendLevel: 13,
