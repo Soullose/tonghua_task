@@ -24,4 +24,4 @@ class TaskMonitor extends AsyncNotifier<List<TaskMessage>> {
   }
 }
 
-final tasKMessageProvider = AsyncNotifierProvider(()=> TaskMonitor());
+final tasKMessageProvider = AsyncNotifierProvider(() => TaskMonitor());

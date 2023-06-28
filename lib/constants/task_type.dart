@@ -13,7 +13,6 @@ enum TaskType {
   final String description;
 
   const TaskType({required this.code, required this.description});
-
 }
 
 extension on TaskType {

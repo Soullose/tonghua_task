@@ -51,7 +51,11 @@ class TaskMonitorPage extends ConsumerWidget {
               leading: const CircleAvatar(
                 radius: 32,
                 // backgroundColor: Colors.red,
-                child: Icon(IconFont.platformCraneIcon,fill: 1,size: AppInsets.xl,),
+                child: Icon(
+                  IconFont.platformCraneIcon,
+                  fill: 1,
+                  size: AppInsets.xl,
+                ),
               ),
               title: '${platformCrane1Message.value?.payload}',
               subtitle: '${platformCrane1Message.value?.payload}',
