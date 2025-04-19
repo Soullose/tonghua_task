@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tonghua_task/model/monitor/device/agv3_message.dart';
 
 import '../../../model/monitor/device/agv1_message.dart';
 import '../../../model/monitor/device/agv2_message.dart';
@@ -20,6 +21,8 @@ class DeviceMonitor {
   static const Agv1Message _agv1message = Agv1Message();
 
   static const Agv2Message _agv2message = Agv2Message();
+
+  static const Agv3Message _agv3message = Agv3Message();
 
   static const PlatformCrane1Message _platformCrane1Message =
       PlatformCrane1Message();

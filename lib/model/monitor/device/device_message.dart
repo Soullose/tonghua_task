@@ -14,15 +14,29 @@ DeviceMessage deviceMessageFromJson(String str) =>
 String deviceMessageToJson(DeviceMessage data) => json.encode(data.toJson());
 
 @freezed
-class DeviceMessage with _$DeviceMessage {
-  const factory DeviceMessage({
-    String? senderId,
-    String? senderType,
-    String? taskId,
-    String? type,
-    String? payload,
-  }) = _DeviceMessage;
+@JsonSerializable()
+abstract class DeviceMessage with _$DeviceMessage {
+  const DeviceMessage({
+    this.senderId,
+    this.senderType,
+    this.taskId,
+    this.type,
+    this.payload,
+  });
+
+  @override
+  final String? senderId;
+  @override
+  final String? senderType;
+  @override
+  final String? taskId;
+  @override
+  final String? type;
+  @override
+  final String? payload;
 
   factory DeviceMessage.fromJson(Map<String, dynamic> json) =>
       _$DeviceMessageFromJson(json);
+
+  Map<String,dynamic> toJson() => _$DeviceMessageToJson(this);
 }

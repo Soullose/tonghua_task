@@ -15,15 +15,39 @@ String platformCrane1MessageToJson(PlatformCrane1Message data) =>
     json.encode(data.toJson());
 
 @freezed
-class PlatformCrane1Message with _$PlatformCrane1Message {
+@JsonSerializable()
+abstract class PlatformCrane1Message with _$PlatformCrane1Message {
+
+  const PlatformCrane1Message._();
+
   const factory PlatformCrane1Message({
     String? senderId,
     String? senderType,
     String? taskId,
     String? type,
     String? payload,
-  }) = _PlatformCrane1Message;
+}) = _PlatformCrane1Message;
+
+  // const PlatformCrane1Message({
+  //   this.senderId,
+  //   this.senderType,
+  //   this.taskId,
+  //   this.type,
+  //   this.payload,
+  // });
+  // @override
+  // final String? senderId;
+  // @override
+  // final String? senderType;
+  // @override
+  // final String? taskId;
+  // @override
+  // final String? type;
+  // @override
+  // final String? payload;
 
   factory PlatformCrane1Message.fromJson(Map<String, dynamic> json) =>
       _$PlatformCrane1MessageFromJson(json);
+
+  Map<String,dynamic> toJson() => _$PlatformCrane1MessageToJson(this);
 }

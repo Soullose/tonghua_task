@@ -44,7 +44,7 @@ TaskMessage taskMessageFromJson(String str) =>
 String taskMessageToJson(TaskMessage data) => json.encode(data.toJson());
 
 @freezed
-class TaskMessage with _$TaskMessage {
+abstract class TaskMessage with _$TaskMessage {
   const factory TaskMessage({
     String? id,
     int? materialType,
@@ -70,7 +70,7 @@ class TaskMessage with _$TaskMessage {
 }
 
 @freezed
-class StockLocation with _$StockLocation {
+abstract class StockLocation with _$StockLocation {
   const factory StockLocation({
     String? areaType,
     int? tag,
@@ -85,7 +85,7 @@ class StockLocation with _$StockLocation {
 }
 
 @freezed
-class TruckLocation with _$TruckLocation {
+abstract class TruckLocation with _$TruckLocation {
   const factory TruckLocation({
     int? row,
     int? level,

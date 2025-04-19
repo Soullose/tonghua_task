@@ -13,7 +13,7 @@ InitData initDataFromJson(String str) => InitData.fromJson(json.decode(str));
 String initDataToJson(InitData data) => json.encode(data.toJson());
 
 @freezed
-class InitData with _$InitData {
+abstract class InitData with _$InitData {
   const factory InitData({
     List<Application>? applications,
     User? user,
@@ -24,7 +24,7 @@ class InitData with _$InitData {
 }
 
 @freezed
-class Application with _$Application {
+abstract class Application with _$Application {
   const factory Application({
     String? id,
     String? name,
@@ -40,7 +40,7 @@ class Application with _$Application {
 }
 
 @freezed
-class User with _$User {
+abstract class User with _$User {
   const factory User({
     String? id,
     String? firstName,

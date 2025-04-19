@@ -15,15 +15,41 @@ String warehouseCrane1MessageToJson(WarehouseCrane1Message data) =>
     json.encode(data.toJson());
 
 @freezed
-class WarehouseCrane1Message with _$WarehouseCrane1Message {
+@JsonSerializable()
+abstract class WarehouseCrane1Message with _$WarehouseCrane1Message {
+
+  const WarehouseCrane1Message._();
+
   const factory WarehouseCrane1Message({
     String? senderId,
     String? senderType,
     String? taskId,
     String? type,
     String? payload,
-  }) = _WarehouseCrane1Message;
+}) = _WarehouseCrane1Message;
+
+
+  // const WarehouseCrane1Message({
+  //   this.senderId,
+  //   this.senderType,
+  //   this.taskId,
+  //   this.type,
+  //   this.payload,
+  // });
+  //
+  // @override
+  // final String? senderId;
+  // @override
+  // final String? senderType;
+  // @override
+  // final String? taskId;
+  // @override
+  // final String? type;
+  // @override
+  // final String? payload;
 
   factory WarehouseCrane1Message.fromJson(Map<String, dynamic> json) =>
       _$WarehouseCrane1MessageFromJson(json);
+
+  Map<String,dynamic> toJson() => _$WarehouseCrane1MessageToJson(this);
 }

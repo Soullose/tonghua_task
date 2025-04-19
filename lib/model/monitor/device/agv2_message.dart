@@ -14,15 +14,38 @@ Agv2Message agv2MessageFromJson(String str) =>
 String agv2MessageToJson(Agv2Message data) => json.encode(data.toJson());
 
 @freezed
-class Agv2Message with _$Agv2Message {
+@JsonSerializable()
+abstract class Agv2Message with _$Agv2Message {
+
   const factory Agv2Message({
     String? senderId,
     String? senderType,
     String? taskId,
     String? type,
     String? payload,
-  }) = _Agv2Message;
+}) = _Agv2Message;
+
+  // const Agv2Message({
+  //   this.senderId,
+  //   this.senderType,
+  //   this.taskId,
+  //   this.type,
+  //   this.payload,
+  // });
+  //
+  // @override
+  // final String? senderId;
+  // @override
+  // final String? senderType;
+  // @override
+  // final String? taskId;
+  // @override
+  // final String? type;
+  // @override
+  // final String? payload;
 
   factory Agv2Message.fromJson(Map<String, dynamic> json) =>
       _$Agv2MessageFromJson(json);
+
+  Map<String,dynamic> toJson() => _$Agv2MessageToJson(this);
 }
