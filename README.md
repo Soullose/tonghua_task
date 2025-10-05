@@ -19,3 +19,11 @@ samples, guidance on mobile development, and a full API reference.
 ```shell
 flutter pub run build_runner watch
 ```
+
+##打包命令
+
+```shell
+flutter build apk --release --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+```
+### 结构调整
+![结构调整](Screenshot_20250726_193056_com.tencent.mm.jpg)
